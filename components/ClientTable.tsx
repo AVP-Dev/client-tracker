@@ -165,7 +165,7 @@ function ViewRow({
         <span className="hidden md:block text-sm text-gray-500 truncate">{client.phone}</span>
 
         {/* Date + Actions */}
-        <div className="hidden md:flex items-center justify-end gap-2">
+        <div className="hidden md:flex flex-col items-end gap-1">
           <span className="text-xs text-gray-400 tabular-nums">{formatDate(client.createdAt)}</span>
 
           {/* Actions */}
