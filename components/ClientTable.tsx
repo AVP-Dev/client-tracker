@@ -65,7 +65,7 @@ export default function ClientTable({
       {/* ── Таблица ── */}
       <div className="ui-card overflow-hidden">
         {/* Header — desktop only */}
-        <div className="hidden md:grid grid-cols-[1fr_120px_100px_100px] gap-4 px-5 py-3 bg-gray-50/80 border-b border-gray-100">
+        <div className="hidden md:grid grid-cols-[1fr_130px_140px_100px] gap-4 px-5 py-3 bg-gray-50/80 border-b border-gray-100">
           <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Клиент</span>
           <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Статус</span>
           <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Телефон</span>
@@ -117,7 +117,7 @@ function ViewRow({
   return (
     <div className="group transition-colors hover:bg-gray-50/60">
       {/* ── Main Row ── */}
-      <div className="grid grid-cols-[1fr_auto] md:grid-cols-[1fr_120px_100px_100px] gap-3 md:gap-4 items-center px-5 py-3.5">
+      <div className="grid grid-cols-[1fr_auto] md:grid-cols-[1fr_130px_140px_100px] gap-3 md:gap-4 items-center px-5 py-3.5">
         {/* Avatar + Name */}
         <div className="flex items-center gap-3 min-w-0">
           {/* Avatar Circle */}
