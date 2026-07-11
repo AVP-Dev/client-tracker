@@ -115,35 +115,27 @@ function ViewRow({
   }
 
   return (
-    <div className="group transition-colors hover:bg-gray-50/60">
+    <div className="transition-colors">
       {/* ── Main Row ── */}
-      <div className="grid grid-cols-[1fr_auto] md:grid-cols-[1fr_130px_140px_100px] gap-3 md:gap-4 items-center px-5 py-3.5">
+      <div
+        className="grid grid-cols-[1fr_auto] md:grid-cols-[1fr_130px_140px_100px] gap-3 md:gap-4 items-center px-5 py-3.5 cursor-pointer hover:bg-gray-50/60"
+        onClick={() => setExpanded(!expanded)}
+      >
         {/* Avatar + Name */}
         <div className="flex items-center gap-3 min-w-0">
-          {/* Avatar Circle */}
           <div
-            className={`w-10 h-10 rounded-full ${cfg.bg} ${cfg.text} flex items-center justify-center text-xs font-bold ring-2 ${cfg.ring} flex-shrink-0 transition-colors`}
+            className={`w-10 h-10 rounded-full ${cfg.bg} ${cfg.text} flex items-center justify-center text-xs font-bold ring-2 ${cfg.ring} flex-shrink-0`}
           >
             {initials(client.name)}
           </div>
-
           <div className="min-w-0">
             <p className="text-sm font-semibold text-gray-900 truncate leading-tight">{client.name}</p>
             <p className="text-xs text-gray-400 mt-0.5 md:hidden">{client.phone}</p>
-            {client.notes && (
-              <button
-                onClick={(e) => { e.stopPropagation(); setExpanded(!expanded); }}
-                className="flex items-center gap-1 mt-1 text-[11px] text-amber-600 hover:text-amber-700"
-              >
-                <span>📝</span>
-                <span>{expanded ? "Скрыть заметку" : "Показать заметку"}</span>
-              </button>
-            )}
           </div>
         </div>
 
         {/* Status Badge */}
-        <div className="flex items-center gap-2">
+        <div onClick={(e) => e.stopPropagation()}>
           <select
             value={status}
             onChange={(e) => changeStatus(e.target.value as Status)}
@@ -164,72 +156,52 @@ function ViewRow({
         {/* Phone — desktop */}
         <span className="hidden md:block text-sm text-gray-500 truncate">{client.phone}</span>
 
-        {/* Date + Actions */}
-        <div className="hidden md:flex flex-col items-end gap-1">
-          <span className="text-xs text-gray-400 tabular-nums">{formatDate(client.createdAt)}</span>
+        {/* Date */}
+        <span className="hidden md:block text-xs text-gray-400 tabular-nums text-right">{formatDate(client.createdAt)}</span>
 
-          {/* Actions */}
-          <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-            <button onClick={onEdit} className="ui-icon-btn" title="Изменить">
-              ✏️
-            </button>
-            {!confirmDel ? (
-              <button onClick={() => setConfirmDel(true)} className="ui-icon-btn hover:!text-red-500 hover:!bg-red-50" title="Удалить">
-                🗑️
-              </button>
-            ) : (
-              <div className="flex items-center gap-1 ui-animate-in">
-                <button
-                  onClick={async () => {
-                    await api.deleteClient(client.id);
-                    onChanged();
-                  }}
-                  className="text-xs px-2.5 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 font-medium"
-                >
-                  Да
-                </button>
-                <button onClick={() => setConfirmDel(false)} className="text-xs px-2.5 py-1 text-gray-500 hover:text-gray-700">
-                  Нет
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Mobile actions */}
-        <div className="flex md:hidden items-center gap-1 col-span-2">
-          <span className="text-xs text-gray-400 mr-auto">{formatDate(client.createdAt)}</span>
-          <button onClick={onEdit} className="ui-btn ui-btn-ghost text-xs h-8 px-3">
-            ✏️ Изменить
-          </button>
-          {!confirmDel ? (
-            <button onClick={() => setConfirmDel(true)} className="ui-btn ui-btn-ghost text-xs h-8 px-3 text-gray-400 hover:text-red-500">
-              🗑️
-            </button>
-          ) : (
-            <div className="flex items-center gap-1 ui-animate-in">
-              <button
-                onClick={async () => {
-                  await api.deleteClient(client.id);
-                  onChanged();
-                }}
-                className="text-xs px-3 py-1 bg-red-500 text-white rounded-md font-medium"
-              >
-                Удалить
-              </button>
-              <button onClick={() => setConfirmDel(false)} className="text-xs px-3 py-1 text-gray-500">
-                Отмена
-              </button>
-            </div>
-          )}
-        </div>
+        {/* Mobile date */}
+        <span className="md:hidden text-xs text-gray-400">{formatDate(client.createdAt)}</span>
       </div>
 
-      {/* ── Expanded Notes ── */}
-      {expanded && client.notes && (
-        <div className="px-5 pb-4 pt-0 ui-animate-in">
-          <div className="ml-[52px] p-3 bg-amber-50/70 rounded-lg border border-amber-100">
-            <p className="text-xs text-gray-600 leading-relaxed whitespace-pre-wrap">{client.notes}</p>
+      {/* ── Expanded: Notes + Actions ── */}
+      {expanded && (
+        <div className="px-5 pb-4 pt-1 ui-animate-in">
+          <div className="ml-0 md:ml-[52px] space-y-3">
+            {/* Notes */}
+            {client.notes && (
+              <div className="p-3 bg-amber-50/70 rounded-lg border border-amber-100">
+                <p className="text-[11px] font-medium text-amber-600 mb-1">Заметки</p>
+                <p className="text-xs text-gray-600 leading-relaxed whitespace-pre-wrap">{client.notes}</p>
+              </div>
+            )}
+
+            {/* Actions */}
+            <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+              <button onClick={onEdit} className="ui-btn ui-btn-secondary text-xs h-8 px-3">
+                ✏️ Редактировать
+              </button>
+              {!confirmDel ? (
+                <button onClick={() => setConfirmDel(true)} className="ui-btn ui-btn-ghost text-xs h-8 px-3 text-gray-400 hover:text-red-500">
+                  🗑️ Удалить
+                </button>
+              ) : (
+                <div className="flex items-center gap-1 ui-animate-in">
+                  <span className="text-xs text-gray-400">Удалить?</span>
+                  <button
+                    onClick={async () => {
+                      await api.deleteClient(client.id);
+                      onChanged();
+                    }}
+                    className="text-xs px-3 py-1 bg-red-500 text-white rounded-md font-medium hover:bg-red-600"
+                  >
+                    Да
+                  </button>
+                  <button onClick={() => setConfirmDel(false)} className="text-xs px-3 py-1 text-gray-500 hover:text-gray-700">
+                    Нет
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
