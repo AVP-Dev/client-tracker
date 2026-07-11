@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — Design Tokens (8px grid, WCAG AA)
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Color: Primary ── */
+  --c-primary-50:  #eff6ff;
+  --c-primary-100: #dbeafe;
+  --c-primary-500: #3b82f6;
+  --c-primary-600: #2563eb;
+  --c-primary-700: #1d4ed8;
+
+  /* ── Color: Neutral ── */
+  --c-gray-50:  #f9fafb;
+  --c-gray-100: #f3f4f6;
+  --c-gray-200: #e5e7eb;
+  --c-gray-300: #d1d5db;
+  --c-gray-400: #9ca3af;
+  --c-gray-500: #6b7280;
+  --c-gray-600: #4b5563;
+  --c-gray-700: #374151;
+  --c-gray-800: #1f2937;
+  --c-gray-900: #111827;
+
+  /* ── Color: Semantic ── */
+  --c-success-50:  #f0fdf4;  --c-success-600: #16a34a;
+  --c-warning-50:  #fffbeb;  --c-warning-600: #d97706;
+  --c-error-50:    #fef2f2;  --c-error-600:   #dc2626;
+
+  /* ── Typography ── */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* ── Radius ── */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 18px;
+  --r-full: 9999px;
+
+  /* ── Shadow ── */
+  --shadow-xs:  0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  --shadow-lg:  0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+}
+
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--c-gray-50);
+  color: var(--c-gray-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  margin: 0;
+}
+
+::selection {
+  background: var(--c-primary-100);
+  color: var(--c-primary-700);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT: Card
+   ═══════════════════════════════════════════════════════════ */
+.ui-card {
+  background: white;
+  border: 1px solid var(--c-gray-200);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-xs);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT: Input (Outlined)
+   ═══════════════════════════════════════════════════════════ */
+.ui-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--c-gray-900);
+  background: white;
+  border: 1.5px solid var(--c-gray-300);
+  border-radius: var(--r-md);
+  transition: border-color 150ms, box-shadow 150ms;
+  outline: none;
+}
+.ui-input:hover { border-color: var(--c-gray-400); }
+.ui-input:focus {
+  border-color: var(--c-primary-500);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+}
+.ui-input::placeholder { color: var(--c-gray-400); }
+
+.ui-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--c-gray-900);
+  background: white;
+  border: 1.5px solid var(--c-gray-300);
+  border-radius: var(--r-md);
+  transition: border-color 150ms, box-shadow 150ms;
+  outline: none;
+  resize: vertical;
+  min-height: 56px;
+}
+.ui-textarea:hover { border-color: var(--c-gray-400); }
+.ui-textarea:focus {
+  border-color: var(--c-primary-500);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+}
+
+.ui-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-gray-700);
+  margin-bottom: 6px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT: Button
+   ═══════════════════════════════════════════════════════════ */
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all 150ms;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.ui-btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.3);
+}
+.ui-btn:active { transform: scale(0.98); }
+.ui-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.ui-btn-primary {
+  background: var(--c-primary-600);
+  color: white;
+}
+.ui-btn-primary:hover:not(:disabled) {
+  background: var(--c-primary-700);
+  box-shadow: var(--shadow-sm);
+}
+
+.ui-btn-secondary {
+  background: var(--c-gray-100);
+  color: var(--c-gray-700);
+}
+.ui-btn-secondary:hover:not(:disabled) {
+  background: var(--c-gray-200);
+}
+
+.ui-btn-danger {
+  background: var(--c-error-600);
+  color: white;
+}
+.ui-btn-danger:hover:not(:disabled) {
+  background: #b91c1c;
+  box-shadow: var(--shadow-sm);
+}
+
+.ui-btn-ghost {
+  background: transparent;
+  color: var(--c-gray-600);
+  height: 36px;
+  padding: 0 12px;
+}
+.ui-btn-ghost:hover:not(:disabled) {
+  background: var(--c-gray-100);
+  color: var(--c-gray-900);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT: Icon Button
+   ═══════════════════════════════════════════════════════════ */
+.ui-icon-btn {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--c-gray-400);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 150ms;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+}
+.ui-icon-btn:hover {
+  background: var(--c-gray-100);
+  color: var(--c-gray-700);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT: Select (Status chip)
+   ═══════════════════════════════════════════════════════════ */
+.ui-select {
+  height: 32px;
+  padding: 0 28px 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: 1.5px solid transparent;
+  border-radius: var(--r-full);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='currentColor' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: box-shadow 150ms;
+}
+.ui-select:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+}
+
+.ui-status-new      { background: var(--c-primary-50);  color: var(--c-primary-700);  border-color: var(--c-primary-100); }
+.ui-status-progress { background: var(--c-warning-50);  color: #92400e;               border-color: #fde68a; }
+.ui-status-closed   { background: var(--c-success-50);  color: #166534;               border-color: #bbf7d0; }
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT: Alert
+   ═══════════════════════════════════════════════════════════ */
+.ui-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  font-size: 14px;
+  line-height: 1.4;
+  animation: ui-fade-in 200ms ease;
+}
+.ui-alert-success { background: var(--c-success-50); color: var(--c-success-600); }
+.ui-alert-error   { background: var(--c-error-50);   color: var(--c-error-600); }
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT: Notes Callout
+   ═══════════════════════════════════════════════════════════ */
+.ui-notes {
+  background: #fffdf5;
+  border: 1px solid #fde68a;
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════ */
+@keyframes ui-fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ui-animate-in {
+  animation: ui-fade-in 200ms ease;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--c-gray-300); border-radius: var(--r-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--c-gray-400); }
